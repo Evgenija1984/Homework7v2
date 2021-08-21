@@ -8,6 +8,10 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,7 +44,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonBack:
-
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if (Settings.isBackAsRemove) {
+                    Fragment fragmentForDelete = getVisibleFragment(fragmentManager);
+                    if (fragmentForDelete != null) {
+                        fragmentManager.beginTransaction().remove(fragmentForDelete).commit();
+                    }
+                } else {
+                    fragmentManager.popBackStack();
+                }
                 break;
             case R.id.buttonMain:
                 showFragment(MainFragment.newInstance());
@@ -52,13 +64,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showFragment(SettingsFragment.newInstance());
                 break;
         }
+    }
 
+    Fragment getVisibleFragment(FragmentManager fragmentManager) {
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+        for (int i = 0; i < fragmentList.size(); i++) {
+            Fragment fragment = fragmentList.get(i);
+            if (fragment.isVisible()) {
+                return fragment;
+            }
+        }
+        return null;
     }
 
     private void showFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (Settings.isDeleteBeforeAdd) {
+            Fragment fragmentForDelete = getVisibleFragment(fragmentManager);
+            if (fragmentForDelete != null) {
+                fragmentTransaction.remove(fragmentForDelete);
+            }
+        }
+        if (Settings.isAddFragment) {
+            fragmentTransaction
+                    .add(R.id.fragment_container, fragment);
+        } else if (Settings.isReplaceFragment)
+            fragmentTransaction
+                    .replace(R.id.fragment_container, fragment);
+        if (Settings.isBackStack) {
+            fragmentTransaction
+                    .addToBackStack("");
+        }
+        fragmentTransaction.commit();
     }
 }
