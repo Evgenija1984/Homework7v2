@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/favorite_screen"
-        android:textSize="@dimen/text_fragment" />
+        android:textSize="@dimen/text_size_fragment" />
 
 </FrameLayout>

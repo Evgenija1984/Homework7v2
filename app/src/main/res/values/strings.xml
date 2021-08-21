@@ -6,5 +6,10 @@
     <string name="back">Back</string>
     <string name="main_screen">Main screen</string>
     <string name="favorite_screen">Favorite screen</string>
+    <string name="use_backstack">Use backstack</string>
+    <string name="replace">replace</string>
+    <string name="add">add</string>
+    <string name="delete_before_add">Delete before add</string>
+    <string name="back_as_remove_fragment">Back as remove fragment</string>
 
 </resources>
