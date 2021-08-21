@@ -11,5 +11,9 @@
     <string name="add">add</string>
     <string name="delete_before_add">Delete before add</string>
     <string name="back_as_remove_fragment">Back as remove fragment</string>
-
+    <string name="nav_header_title">Иван Иванов</string>
+    <string name="nav_header_subtitle">15.03.2000</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="close">Закрыли</string>
+    <string name="open">Открыли</string>
 </resources>
