@@ -32,6 +32,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                showFragment(SettingsFragment.newInstance());
+                return true;
+            case R.id.action_main:
+                showFragment(MainFragment.newInstance());
+                return true;
+            case R.id.action_favorite:
+                showFragment(FavoriteFragment.newInstance());
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -40,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onCreateOptionsMenu(menu);
     }
 
-        private void readSettings() {
+    private void readSettings() {
         SharedPreferences sharedPreferences = getSharedPreferences(Settings.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         Settings.isBackStack = sharedPreferences.getBoolean(Settings.IS_BACK_STACK_USED, false);
         Settings.isAddFragment = sharedPreferences.getBoolean(Settings.IS_ADD_FRAGMENT_USED, false);
