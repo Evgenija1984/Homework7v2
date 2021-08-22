@@ -160,9 +160,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Settings.isAddFragment) {
             fragmentTransaction
                     .add(R.id.fragment_container, fragment);
-        } else if (Settings.isReplaceFragment)
+        } else {
             fragmentTransaction
                     .replace(R.id.fragment_container, fragment);
+        }
+
+
         if (Settings.isBackStack) {
             fragmentTransaction
                     .addToBackStack("");
